@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'Ubuntu', sans-serif;
+  src: url(./Ubuntu/Ubuntu-BoldItalic.ttf);
+}
+
+@font-face {
+  font-family: 'Asmelina-Harley';
+  src: url(./Asmelina-Harley/Asmelina-Harley-2.ttf);
+}
+
+@font-face {
+  font-family: 'Authentica';
+  src: url(./Authentica/Authentica-3.ttf);
+}
+
+@font-face {
+  font-family: 'ZCOOL KuaiLe';
+  src: url(./kuaile/ZCOOLKuaiLe-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'M PLUS 1p mediu';
+  src: url(./M_PLUS_1p/MPLUS1p-Medium.ttf);
+}

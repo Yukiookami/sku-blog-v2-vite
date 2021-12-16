@@ -1,0 +1,63 @@
+/* 波浪动画 */
+.blog-back-nami {
+  animation: nami 40s linear 0s infinite alternate;
+  -webkit-animation: nami 40s linear 0s infinite alternate;
+}
+
+@keyframes nami {
+  from {
+    transform: translateX(0px);
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    -o-transform: translateX(0px);
+  }
+
+  to {
+    transform: translateX(100vw);
+    -webkit-transform: translateX(100vw);
+    -moz-transform: translateX(100vw);
+    -ms-transform: translateX(100vw);
+    -o-transform: translateX(100vw);
+  }
+}
+
+.blog-back-nami-slowly {
+  animation: nami 70s linear 0s infinite alternate;
+  -webkit-animation: nami 70s linear 0s infinite alternate;
+}
+
+@keyframes nami {
+  from {
+    transform: translateX(0px);
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    -ms-transform: translateX(0px);
+    -o-transform: translateX(0px);
+  }
+
+  to {
+    transform: translateX(100vw);
+    -webkit-transform: translateX(100vw);
+    -moz-transform: translateX(100vw);
+    -ms-transform: translateX(100vw);
+    -o-transform: translateX(100vw);
+  }
+}
+/* 波浪动画end */
+
+/* 首页轮播图 */
+.carousel-box {
+  animation: carousel 10s ease-in-out 6s infinite alternate;
+  -webkit-animation: carousel 10s ease-in-out 6s infinite alternate;
+}
+
+@keyframes carousel {
+  from {
+    background-size: 100%;
+  } 
+
+  to {
+    background-size: 110%;
+  }
+}

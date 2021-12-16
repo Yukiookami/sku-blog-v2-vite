@@ -1,0 +1,24 @@
+/*
+ * @Author: zxy
+ * @Date: 2021-06-13 22:34:28
+ * @LastEditTime: 2021-10-17 22:10:13
+ * @FilePath: /my-blog/src/assets/css/adminCss/adminCommon.scss
+ */
+.input-box {
+  color: #333;
+  font-weight: 300;
+}
+
+.input-box span {
+  display: block;
+  font-size: 14px;
+}
+
+.input-box .input-magin {
+  margin: 10px 0 20px 0;
+  width: 50%;
+}
+
+.table-content :deep(.el-form-item__label) {
+  color: #ccc !important;
+}

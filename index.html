@@ -1,0 +1,40 @@
+<!--
+ * @Author: zxy
+ * @Date: 2021-11-23 18:40:03
+ * @LastEditTime: 2021-11-23 21:00:06
+ * @FilePath: /sku-blog-vite/index.html
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico">
+    <!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
+    <title>SKU blog</title>
+    <meta name="keywords" content="JS,js,JavaScript,TS,ts,typescript,日语,日本語,blog,ブログ,技术,プログラミング,program,编程,学习,勉強,Vue,Vue2,Vue3,node.js,node,koa,Koa2,Koa,express,CSS3,css,css3,HTML,hmlt,HTML5,hmlt5"/>
+    <meta name="description" content="SKU blog" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <!-- 引入markdown流程图 -->
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+    <!-- 新live2d -->
+    <!-- 可行但是不够智能 -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script> -->
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <!-- 执行live2d，最最新 -->
+    <script src="./live2d/autoload.js"></script>
+    <!-- 引入live2d -->
+    <!-- 会造成页面重渲染，弃用 -->
+    <!-- <script type="text/javascript" src="/live2dw/lib/L2Dwidget.min.js"></script> -->
+    <!-- built files will be auto injected -->
+  </body>
+</html>
