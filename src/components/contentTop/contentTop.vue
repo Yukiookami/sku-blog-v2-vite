@@ -13,7 +13,7 @@
     </div>
   </div>
 </template>
-
+ 
 <script>
 import { reactive, toRefs, watchEffect } from 'vue'
 // 引入router对象
@@ -128,6 +128,6 @@ export default {
 }
 
 .content-top-sec-extend {
-  background-size: 120%;
+  transform: scale(1.05);
 }
 </style>
