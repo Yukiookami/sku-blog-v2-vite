@@ -1,7 +1,7 @@
 /*
  * @Author: zxy
  * @Date: 2021-04-18 00:15:31
- * @LastEditTime: 2021-11-23 21:10:41
+ * @LastEditTime: 2021-12-18 17:14:44
  * @FilePath: /sku-blog-vite/src/main.js
  */
 import { createApp } from 'vue'

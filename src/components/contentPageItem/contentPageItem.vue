@@ -29,17 +29,29 @@
       </div>
     </div>
 
+    <!-- 图片右 -->
     <div @click="goToContentPage" class="content-page-item-image-box">
-      <img :src="cover" alt="">
+      <!-- <img :src="cover" alt=""> -->
+      <el-image class="img-box"
+      fit="cover"
+      :src="cover" lazy>
+        <template #placeholder>
+          <div class="image-slot">Loading<span class="dot">...</span></div>
+        </template>
+      </el-image>
     </div>
   </div>
 
+  <!-- 图片左 -->
   <div class="content-page-item-sec" v-else
   :class="{'chage-content-page-item-sec': itemExtent}"
   @mouseenter="changeItem"
   @mouseleave="changeItem">
     <div @click="goToContentPage" class="content-page-item-image-box">
-      <img :src="cover" alt="">
+      <!-- <img :src="cover" alt=""> -->
+      <el-image class="img-box"
+      fit="cover"
+      :src="cover" lazy></el-image>
     </div>
 
     <div class="content-page-item-content-box content-box-flex-right">
@@ -220,10 +232,10 @@ export default {
     height: 300px;
     cursor: pointer;
 
-    img {
+    .img-box {
       height: 100%;
       width: 100%;
-      object-fit: cover;
+      // object-fit: cover;
       transition: all .5s ease-in-out;
     }
   }
@@ -233,7 +245,7 @@ export default {
   box-shadow: 0 0 10px rgba(0, 0, 0, .8);
 
   .content-page-item-image-box {
-    img {
+    .img-box {
       transform-origin: center;
       transform: scale(1.1);
     }
