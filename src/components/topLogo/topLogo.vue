@@ -2,7 +2,15 @@
   <div class="top-nav-logo">
     <router-link class="top-nav-link-box" to="/">
       <span>SKU</span>
-      <img ref="logoKitune" v-if="nowCont === 0" src="../../assets/logo-blog-0.png" alt="">
+      <div class="top-nav-logo-box">
+        <img ref="logoKitune" 
+        class="state-2"
+        :class="{'stage-1': nowCont === 0,
+        'stage-2': nowCont === 1,
+        'stage-3': nowCont === 2}"
+        src="../../assets/logo-blog-xb.png" alt="">
+      </div>
+      <!-- <img ref="logoKitune" v-if="nowCont === 0" src="../../assets/logo-blog-0.png" alt=""> -->
       <!-- <img ref="logoKitune" v-else-if="nowCont === 1" src="../../assets/logo-blog-1.png" alt="">
       <img ref="logoKitune" v-else-if="nowCont === 2" src="../../assets/logo-blog-2.png" alt=""> -->
     </router-link>
@@ -26,34 +34,34 @@ export default {
        * 让小狐狸动起来
        */
       runKitune: () => {
-        // let cont = 0
-        // let junbanFlag = 0
+        let cont = 0
+        let junbanFlag = 0
 
-        // state.timer = setInterval(() => {
-        //   if (cont === 2) {
-        //     cont--
-        //     junbanFlag = 0
-        //   } else if (cont === 0) {
-        //     cont++
-        //     junbanFlag = 1
-        //   } else if (junbanFlag) {
-        //     cont++
-        //   } else {
-        //     cont--
-        //   }
+        state.timer = setInterval(() => {
+          if (cont === 2) {
+            cont--
+            junbanFlag = 0
+          } else if (cont === 0) {
+            cont++
+            junbanFlag = 1
+          } else if (junbanFlag) {
+            cont++
+          } else {
+            cont--
+          }
 
-        //   if (logoKitune.value) {
-        //     state.nowCont = cont
-        //   } else {
-        //     clearInterval(state.timer)
-        //   }
-        // }, 150)
+          if (logoKitune.value) {
+            state.nowCont = cont
+          } else {
+            clearInterval(state.timer)
+          }
+        }, 150)
       },
       /**
        * 让小狐狸停下
        */
       stopKitune: () => {
-        // clearInterval(state.timer)
+        clearInterval(state.timer)
       }
     })
 
@@ -77,21 +85,42 @@ export default {
 
 <style lang="scss" scoped>
 @import '../../assets/css/common.scss';
+
+$logoOffset: 54px;
 // logo
 .top-nav-logo {
-width: 110px;
+// width: 110px;
 
   .top-nav-link-box {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    // width: 100%;
     font-family: $font-f-a;
     text-decoration: none;
 
-    img {
-      width: 40%;
+    .top-nav-logo-box {
+      overflow: hidden;
+      width: 50px;
+
+      img {
+        width: 150px;
+      }
     }
+
+    .stage-1 {
+      transform: translateX(0px);
+    }
+    .stage-2 {
+      transform: translateX(-$logoOffset);
+    }
+    .stage-3 {
+      transform: translateX(-$logoOffset * 2);
+    }
+
+    // img {
+    //   width: 40%;
+    // }
 
     span {
       display: block;

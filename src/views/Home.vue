@@ -5,17 +5,18 @@
   >
     <!-- 顶部 -->
     <header class="blog-home-page-header">
-      <top-logo></top-logo>
+      <TopLogo></TopLogo>
       <div
         class="blog-menu"
         @mouseenter="changeLine('long')"
         @mouseleave="changeLine('long')"
         @click="changeLine('rotate')"
       >
+        <!-- blog-yoko-line-color-black -->
         <i
           class="blog-yoko-line blog-line-long"
           :class="{
-            'blog-line-rotate--45 blog-yoko-line-color-black': state.changeRotate,
+            'blog-line-rotate--45': state.changeRotate,
           }"
         ></i>
         <i
@@ -25,10 +26,11 @@
             'blog-hide-line': state.changeRotate,
           }"
         ></i>
+        <!-- blog-yoko-line-color-black -->
         <i
           class="blog-yoko-line blog-line-long"
           :class="{
-            'blog-line-rotate-45 blog-yoko-line-color-black': state.changeRotate,
+            'blog-line-rotate-45': state.changeRotate,
           }"
         ></i>
       </div>
@@ -69,13 +71,13 @@
           </div>
 
           <div class="cantact-icon-sec">
-            <home-ca-icon
+            <HomeCaIcon
               v-for="item in state.caList"
               :key="`caList${item.url}`"
               :icon="item.icon"
               :url="item.url"
               :text="item.text"
-            ></home-ca-icon>
+            ></HomeCaIcon>
           </div>
         </div>
 
@@ -98,7 +100,7 @@
 
     <!-- 菜单栏 -->
     <div>
-      <index-nav
+      <IndexNav
         v-for="(item, index) in state.meunList"
         :key="index"
         :router="item.router"
@@ -107,18 +109,18 @@
         :jpTitle="item.jpTitle"
         :cont="state.meunList.length"
         :changeRotate="state.changeRotate"
-      ></index-nav>
+      ></IndexNav>
     </div>
   </div>
 </template>
 
 <script setup>
 import { computed, getCurrentInstance, onMounted, reactive, toRefs } from "vue";
-import topLogo from "../components/topLogo/topLogo.vue";
-import indexNav from "../components/home/indexNav.vue";
+import TopLogo from "../components/topLogo/topLogo.vue";
+import IndexNav from "../components/home/indexNav.vue";
 import "../../common/font.css";
 import "../assets/css/homeBack.css";
-import homeCaIcon from "../components/home/homeCaIcon.vue";
+import HomeCaIcon from "../components/home/homeCaIcon.vue";
 import store from "../store";
 
 // 倒入图片
