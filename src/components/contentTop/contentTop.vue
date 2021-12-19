@@ -1,8 +1,9 @@
 <template>
   <div class="content-top-sec"
-  :class="{'content-top-sec-extend': maskFlag}"
+  :class="{'content-top-sec-extend': maskFlag,
+  'content-top-sec-img-loading flash-container': !loadOver}"
   :style="{width: `${boxWidth}%`,
-  backgroundImage: `url('${cover}')`}"
+  backgroundImage: loadOver ? `url('${cover}')` : `url(${lazyLoadImg})`}"
   @mouseenter="showMask"
   @mouseleave="showMask"
   @click="goToSenPage">
@@ -11,6 +12,8 @@
       <h3 class="content-top-title">{{title}}</h3>
       <p class="content-top-content">{{content}}</p>
     </div>
+    <!-- 判断图片是否加载完成 -->
+    <img class="is-load" @load="isLoad" :src="cover"/>
   </div>
 </template>
  
@@ -19,6 +22,7 @@ import { reactive, toRefs, watchEffect } from 'vue'
 // 引入router对象
 import Router from '../../router'
 import { goToPage } from '../../assets/js/common'
+import lazyLoadImg from '../../assets/img/statusImg/lazy-load.png'
 
 export default {
   // 封面，标题，内容，id，总数
@@ -49,15 +53,28 @@ export default {
       // 跳转文章页面
       goToSenPage: () => {
         goToPage('article', props.id, props.contentType)
-      }
+      },
+      // 加载完成
+      loadOver: false
     })
+
+    /**
+     * @description: 判断图片是否加载完成
+     * @param {*}
+     * @return {*}
+     */    
+    const isLoad = () => {
+      state.loadOver = true
+    }
 
     watchEffect(() => {
       props.cont > 1 ? state.boxWidth = (100 / props.cont) - 1 : state.boxWidth = 100
     })
 
     return {
-      ...toRefs(state)
+      ...toRefs(state),
+      lazyLoadImg,
+      isLoad
     }
   }
 }
@@ -76,7 +93,7 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  transition: all .5s ease-in-out;
+  transition: transform .5s ease-in-out;
   cursor: pointer;
 
   .content-top-mask {
@@ -129,5 +146,50 @@ export default {
 
 .content-top-sec-extend {
   transform: scale(1.05);
+}
+
+// 判断是否加载的图片
+.is-load {
+  position: absolute;  
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+// 加载结束前的图片
+.content-top-sec-img-loading {
+  background-size: 10%;
+}
+
+.flash-container {
+  background-color: #eee;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    height: 150%;
+    width: 25px;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom:0;
+    margin: auto;
+    opacity: .6;
+    filter: blur(6px);
+    animation: move 1s infinite ease-out;
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translate(-200px, -200px) rotate(45deg);
+  }
+  100% {
+    transform: translate(200px, 200px) rotate(45deg);
+  }
 }
 </style>

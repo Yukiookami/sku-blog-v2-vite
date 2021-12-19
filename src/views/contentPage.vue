@@ -37,7 +37,7 @@
 
       <h1 class="page-title">{{ state.pageTag }}</h1>
 
-      <transition-group name="empty" mode="out-in">
+      <!-- <transition-group name="empty" mode="out-in" tag="div"> -->
         <ContentLine
           title="START:DASH!!"
           v-if="state.contentTopList.length"
@@ -60,42 +60,44 @@
         </div>
 
         <!-- 文章 -->
-        <div
-          class="page-content-sec load-from-bottom"
-          v-for="item in state.contentObject"
-          :key="`contentObject${item.typeId}`"
-        >
-          <div class="contentLine">
-            <ContentLine
-              :title="item.typeName"
-              :icon="item.typeIcon"
-              :id="item.typeId"
-              :contentType="state.contentType"
-            ></ContentLine>
-          </div>
-
-          <template
-            v-for="(contentItem, contentIndex) in item.contentList"
-            :key="`contentItem${contentItem.contentId}`"
+        <div>
+          <div
+            class="page-content-sec load-from-bottom"
+            v-for="item in state.contentObject"
+            :key="`contentObject${item.typeId}`"
           >
-            <div class="contentPageItem" v-if="contentIndex < 3">
-              <ContentPageItem
-                :createTime="contentItem.date"
-                :title="contentItem.title"
-                :tag="contentItem.tag"
-                :content="contentItem.content"
-                :cover="contentItem.coverImg"
-                :id="contentItem.contentId"
-                :index="contentIndex"
+            <div class="contentLine">
+              <ContentLine
+                :title="item.typeName"
+                :icon="item.typeIcon"
+                :id="item.typeId"
                 :contentType="state.contentType"
-              ></ContentPageItem>
+              ></ContentLine>
             </div>
-          </template>
 
-          <view-more
-            :typeId="item.typeId"
-            :contentType="state.contentType"
-          ></view-more>
+            <template
+              v-for="(contentItem, contentIndex) in item.contentList"
+              :key="`contentItem${contentItem.contentId}`"
+            >
+              <div class="contentPageItem" v-if="contentIndex < 3">
+                <ContentPageItem
+                  :createTime="contentItem.date"
+                  :title="contentItem.title"
+                  :tag="contentItem.tag"
+                  :content="contentItem.content"
+                  :cover="contentItem.coverImg"
+                  :id="contentItem.contentId"
+                  :index="contentIndex"
+                  :contentType="state.contentType"
+                ></ContentPageItem>
+              </div>
+            </template>
+
+            <view-more
+              :typeId="item.typeId"
+              :contentType="state.contentType"
+            ></view-more>
+          </div>
         </div>
 
         <!-- 空状态 -->
@@ -106,7 +108,7 @@
             :description="state.descriptionText"
           ></el-empty>
         </div>
-      </transition-group>
+      <!-- </transition-group> -->
     </section>
 
     <BlogFooter></BlogFooter>
@@ -561,6 +563,7 @@ onBeforeUnmount(() => {
     align-items: center;
     // width: calc(100vw - 3px);
     max-width: 800px;
+    // width: 800px;
     margin: 0 auto;
 
     // 目录
@@ -573,6 +576,7 @@ onBeforeUnmount(() => {
     // 空状态
     .empty-box {
       width: calc(60vw);
+      // width: 800px;
       height: calc(100vh - 519px);
       box-shadow: 0 0 5px #e5e9ef;
       border-radius: 30px;
@@ -640,6 +644,7 @@ onBeforeUnmount(() => {
 
 .empty-enter-active,
 .empty-leave-active {
-  transition: all 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 </style>

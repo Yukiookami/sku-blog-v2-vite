@@ -1,147 +1,158 @@
 <template>
-  <div class="content-page-item-sec"
-  :class="{'chage-content-page-item-sec': itemExtent}"
-  v-if="!(index % 2)"
-  @mouseenter="changeItem"
-  @mouseleave="changeItem">
+  <div
+    class="content-page-item-sec"
+    :class="{ 'chage-content-page-item-sec': state.itemExtent }"
+    v-if="!(index % 2)"
+    @mouseenter="changeItem"
+    @mouseleave="changeItem"
+  >
     <div class="content-page-item-content-box">
       <div class="content-box-create-time">
-        <img src="../../assets/img/fontIcon/time.svg" alt="">
-        <span>{{timeText}}{{createTime}}</span>
+        <img src="../../assets/img/fontIcon/time.svg" alt="" />
+        <span>{{ state.timeText }}{{ createTime }}</span>
       </div>
 
       <h3 @click="goToContentPage" class="content-box-title">
-        {{title}}
+        {{ title }}
       </h3>
 
       <!-- 标签 -->
       <div class="content-box-tag-sec">
-        <content-page-item-tag v-for="(item, index) in tag" :key="`tag${index}`"
-        :tagName="item"></content-page-item-tag>
+        <content-page-item-tag
+          v-for="(item, index) in tag"
+          :key="`tag${index}`"
+          :tagName="item"
+        ></content-page-item-tag>
       </div>
 
       <p @click="goToContentPage" class="content-box-content">
-        {{content}}
+        {{ content }}
       </p>
 
       <div @click="goToContentPage" class="content-box-dot">
-        <img src="../../assets/img/fontIcon/dot.svg" alt="">
+        <img src="../../assets/img/fontIcon/dot.svg" alt="" />
       </div>
     </div>
 
     <!-- 图片右 -->
     <div @click="goToContentPage" class="content-page-item-image-box">
       <!-- <img :src="cover" alt=""> -->
-      <el-image class="img-box"
-      fit="cover"
-      :src="cover" lazy>
+      <el-image class="img-box" fit="cover" :src="cover" lazy>
         <template #placeholder>
-          <div class="image-slot">Loading<span class="dot">...</span></div>
+          <LazyLoad></LazyLoad>
         </template>
       </el-image>
     </div>
   </div>
 
   <!-- 图片左 -->
-  <div class="content-page-item-sec" v-else
-  :class="{'chage-content-page-item-sec': itemExtent}"
-  @mouseenter="changeItem"
-  @mouseleave="changeItem">
+  <div
+    class="content-page-item-sec"
+    v-else
+    :class="{ 'chage-content-page-item-sec': state.itemExtent }"
+    @mouseenter="changeItem"
+    @mouseleave="changeItem"
+  >
     <div @click="goToContentPage" class="content-page-item-image-box">
       <!-- <img :src="cover" alt=""> -->
-      <el-image class="img-box"
-      fit="cover"
-      :src="cover" lazy></el-image>
+      <el-image class="img-box" fit="cover" :src="cover" lazy>
+        <template #placeholder>
+          <LazyLoad></LazyLoad>
+        </template>
+      </el-image>
     </div>
 
     <div class="content-page-item-content-box content-box-flex-right">
       <div class="content-box-create-time">
-        <img src="../../assets/img/fontIcon/time.svg" alt="">
-        <span>{{timeText}}{{createTime}}</span>
+        <img src="../../assets/img/fontIcon/time.svg" alt="" />
+        <span>{{ state.timeText }}{{ createTime }}</span>
       </div>
 
       <h3 @click="goToContentPage" class="content-box-title">
-        {{title}}
+        {{ title }}
       </h3>
 
       <!-- 标签 -->
       <div class="content-box-tag-sec">
-        <content-page-item-tag v-for="(item, index) in tag" :key="`tag${index}`"
-        :tagName="item"></content-page-item-tag>
+        <content-page-item-tag
+          v-for="(item, index) in tag"
+          :key="`tag${index}`"
+          :tagName="item"
+        ></content-page-item-tag>
       </div>
 
       <p @click="goToContentPage" class="content-box-content">
-        {{content}}
+        {{ content }}
       </p>
 
       <div @click="goToContentPage" class="content-box-dot">
-        <img src="../../assets/img/fontIcon/dot.svg" alt="">
+        <img src="../../assets/img/fontIcon/dot.svg" alt="" />
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { computed, reactive, toRefs } from 'vue'
-import contentPageItemTag from './contentPageItemTag/contentPageItemTag.vue'
-import { useRouter } from 'vue-router'
+<script setup>
+import { computed, reactive, toRefs } from "vue";
+import contentPageItemTag from "./contentPageItemTag/contentPageItemTag.vue";
+import { useRouter } from "vue-router";
 // 引入router对象
-import Router from '../../router'
-import { goToPage } from '../../assets/js/common'
-import store from '../../store'
+import Router from "../../router";
+import { goToPage } from "../../assets/js/common";
+import store from "../../store";
+import LazyLoad from "../lazyLoad/lazyLoad.vue";
 
-export default {
-  props: ['createTime', 'title', 'tag', 'content', 'cover', 'id', 'index', 'contentType'],
-  setup (props) {
-    // 定义路由
-    const router = useRouter()
+const props = defineProps({
+  createTime: String,
+  title: String,
+  tag: Array,
+  content: String,
+  cover: String,
+  id: String,
+  index: Number,
+  contentType: String,
+});
+// 定义路由
+const router = useRouter();
 
-    Router.beforeEach((to, from, next) => {
-      /* 路由发生变化修改页面title */
-      if (to.meta.title === "文章页面" && props.title) {
-        document.title = props.title
-      } else {
-        document.title = to.meta.title
-      }
-      next()
-    })
-
-    const state = reactive({
-      lang: computed(() => store.state.langFlag),
-      timeText: computed(() => {
-        if (!state.lang) {
-          return '发布于 '
-        } else {
-          return '作成日 '
-        }
-      }),
-      /**
-       * 跳转到文章页面，点击时触发
-       *
-       * @event
-       *
-       */
-      goToContentPage: () => {
-        goToPage('article', props.id, props.contentType)
-      },
-      itemExtent: false,
-      /**
-       * 鼠标放上更改样式，鼠标放入移出触发
-       *
-       * @event
-       */
-      changeItem: () => {
-        state.itemExtent = !state.itemExtent
-      }
-    })
-
-    return {
-      ...toRefs(state),
-    }
-  },
-  components: {
-    contentPageItemTag
+Router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  if (to.meta.title === "文章页面" && props.title) {
+    document.title = props.title;
+  } else {
+    document.title = to.meta.title;
   }
+  next();
+});
+
+const state = reactive({
+  lang: computed(() => store.state.langFlag),
+  timeText: computed(() => {
+    if (!state.lang) {
+      return "发布于 ";
+    } else {
+      return "作成日 ";
+    }
+  }),
+  itemExtent: false
+});
+
+/**
+ * 跳转到文章页面，点击时触发
+ *
+ * @event
+ *
+ */
+const goToContentPage = () => {
+  goToPage("article", props.id, props.contentType);
+}
+/**
+ * 鼠标放上更改样式，鼠标放入移出触发
+ *
+ * @event
+ */
+const changeItem = () => {
+  state.itemExtent = !state.itemExtent;
 }
 </script>
 
@@ -153,9 +164,10 @@ export default {
   align-items: flex-start;
   margin: 40px 0;
   height: 300px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, .4);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
   border-radius: 15px;
-  transition: all .5s ease-in-out;
+  transition: box-shadow 0.5s ease-in-out,
+  transform 0.5s ease-in-out;
 
   // 左边文本
   .content-page-item-content-box {
@@ -189,7 +201,7 @@ export default {
       line-height: 1.5rem;
       white-space: nowrap;
       text-overflow: ellipsis;
-      color: #504E4E;
+      color: #504e4e;
       font-weight: normal;
       cursor: pointer;
     }
@@ -201,7 +213,7 @@ export default {
       -webkit-line-clamp: 4;
       overflow: hidden;
       line-height: 23px;
-      color: #504E4E;
+      color: #504e4e;
       height: 87.5px;
       font-size: 15px;
       text-overflow: ellipsis;
@@ -236,13 +248,13 @@ export default {
       height: 100%;
       width: 100%;
       // object-fit: cover;
-      transition: all .5s ease-in-out;
+      transition: all 0.5s ease-in-out;
     }
   }
 }
 
 .chage-content-page-item-sec {
-  box-shadow: 0 0 10px rgba(0, 0, 0, .8);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 
   .content-page-item-image-box {
     .img-box {

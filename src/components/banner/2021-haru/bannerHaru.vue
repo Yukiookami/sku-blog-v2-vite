@@ -1,12 +1,13 @@
 <template>
   <div class="main-banner-sec">
-    <div class="banner-sec">
+    <div class="banner-sec" v-show="loadOverList.length === layerList.length">
       <!-- 图片群 -->
       <image-box v-for="layer1 in layerList" :key="layer1.url" :url="layer1.url" :scale="layer1.scale" :tranX="layer1.nowTranX"
       :tranY="layer1.nowTranY" :rot="layer1.rot" :opacity="layer1.nowOpacity"
       :width="layer1.width" :height="layer1.height"
       :nowWidth="layer1.nowWidth" :nowHeight="layer1.nowHeight"
-      :blur="layer1.blur"></image-box>
+      :blur="layer1.blur"
+      @loadOver="loadOver"></image-box>
     </div>
     <canvas id="canvas" height="180" :width="viewWidth"
     @mousemove="getMouseMove" @mouseenter="getFirstPoint" @mouseleave="clearFirstPoint"
@@ -341,6 +342,16 @@
               }
             }
           })
+        },
+        // 加载完成的图片
+        loadOverList: [],
+        /**
+         * @description: 图片加载完成
+         * @param {*}
+         * @return {*}
+         */        
+        loadOver () {
+          state.loadOverList.push('loadOver')
         }
       })
 
