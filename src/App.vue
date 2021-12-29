@@ -31,8 +31,6 @@ export default {
 
     let isZoom = detectZoom()
 
-    console.log(isZoom)
-
     if (isZoom !== 100 && state.nowOs) {
       if (!state.lang) {
         ElMessage.warning('当前页面可能被缩放，请将比例调整至100%以获得最佳体验')

@@ -80,43 +80,44 @@
         <ContentMainSkeleton :loading="state.loading">
           <!-- 文章单独区域 -->
           <template #main>
-            <div
-              class="page-content-sec load-from-bottom"
-              v-for="item in state.contentObject"
-              :key="`contentObject${item.typeId}`"
-            >
-              <div class="contentLine">
-                <ContentLine
-                  :title="item.typeName"
-                  :icon="item.typeIcon"
-                  :id="item.typeId"
-                  :contentType="state.contentType"
-                ></ContentLine>
-              </div>
-
-              <template
-                v-for="(contentItem, contentIndex) in item.contentList"
-                :key="`contentItem${contentItem.contentId}`"
+            <template v-for="item in state.contentObject" :key="`contentObject${item.typeId}`">
+              <div v-if="state.contentObject.length"
+                class="page-content-sec load-from-bottom"
+                
               >
-                <div class="contentPageItem" v-if="contentIndex < 3">
-                  <ContentPageItem
-                    :createTime="contentItem.date"
-                    :title="contentItem.title"
-                    :tag="contentItem.tag"
-                    :content="contentItem.content"
-                    :cover="contentItem.coverImg"
-                    :id="contentItem.contentId"
-                    :index="contentIndex"
+                <div class="contentLine">
+                  <ContentLine
+                    :title="item.typeName"
+                    :icon="item.typeIcon"
+                    :id="item.typeId"
                     :contentType="state.contentType"
-                  ></ContentPageItem>
+                  ></ContentLine>
                 </div>
-              </template>
 
-              <view-more
-                :typeId="item.typeId"
-                :contentType="state.contentType"
-              ></view-more>
-            </div>
+                <template
+                  v-for="(contentItem, contentIndex) in item.contentList"
+                  :key="`contentItem${contentItem.contentId}`"
+                >
+                  <div class="contentPageItem" v-if="contentIndex < 3">
+                    <ContentPageItem
+                      :createTime="contentItem.date"
+                      :title="contentItem.title"
+                      :tag="contentItem.tag"
+                      :content="contentItem.content"
+                      :cover="contentItem.coverImg"
+                      :id="contentItem.contentId"
+                      :index="contentIndex"
+                      :contentType="state.contentType"
+                    ></ContentPageItem>
+                  </div>
+                </template>
+
+                <view-more
+                  :typeId="item.typeId"
+                  :contentType="state.contentType"
+                ></view-more>
+              </div>
+            </template>
           </template>
           <!-- 文章单独区域end -->
         </ContentMainSkeleton>
@@ -640,6 +641,7 @@ onBeforeUnmount(() => {
       background-repeat: no-repeat;
       background-position: 75% 100%;
       background-image: url("../assets/img/statusImg/jingle.png");
+      z-index: 999;
     }
 
     // 标题
