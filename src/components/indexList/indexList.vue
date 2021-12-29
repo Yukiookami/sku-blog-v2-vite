@@ -173,7 +173,8 @@ export default {
 .index-list-box {
   overflow: hidden;
   // height: calc(100vh - 200px);
-  height: 900px;
+  // height: 900px;
+  max-height: 900px;
   width: 200px;
   z-index: 999;
   overflow-x: hidden;

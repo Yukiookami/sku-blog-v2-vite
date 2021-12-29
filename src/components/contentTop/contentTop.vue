@@ -1,20 +1,20 @@
 <template>
-  <div class="content-top-sec"
-  :class="{'content-top-sec-extend': maskFlag,
-  'content-top-sec-img-loading flash-container': !loadOver}"
-  :style="{width: `${boxWidth}%`,
-  backgroundImage: loadOver ? `url('${cover}')` : `url(${lazyLoadImg})`}"
-  @mouseenter="showMask"
-  @mouseleave="showMask"
-  @click="goToSenPage">
-    <div class="content-top-mask"
-    :class="{'content-top-mask-show': maskFlag}">
-      <h3 class="content-top-title">{{title}}</h3>
-      <p class="content-top-content">{{content}}</p>
+    <div class="content-top-sec"
+    :class="{'content-top-sec-extend': maskFlag,
+    'content-top-sec-img-loading flash-container': !loadOver}"
+    :style="{width: `${boxWidth}%`,
+    backgroundImage: loadOver ? `url('${cover}')` : `url(${lazyLoadImg})`}"
+    @mouseenter="showMask"
+    @mouseleave="showMask"
+    @click="goToSenPage">
+      <div class="content-top-mask"
+      :class="{'content-top-mask-show': maskFlag}">
+        <h3 class="content-top-title">{{title}}</h3>
+        <p class="content-top-content">{{content}}</p>
+      </div>
+      <!-- 判断图片是否加载完成 -->
+      <img class="is-load" @load="isLoad" :src="cover"/>
     </div>
-    <!-- 判断图片是否加载完成 -->
-    <img class="is-load" @load="isLoad" :src="cover"/>
-  </div>
 </template>
  
 <script>

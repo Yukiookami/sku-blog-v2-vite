@@ -25,89 +25,114 @@
         v-if="state.contentObject.length"
         class="main-content-index-list-box"
       >
-        <IndexList
-          :senArr="state.contentObject"
-          :titleIndex="state.contentLineIndex"
-          :contentIndex="state.contentPageItemIndex"
-          :numberList="state.arrLength"
-          @goTo="goTo"
-          :limt="3"
-        ></IndexList>
+        <IndexLisstSkeleton :loading="state.loading">
+          <template #index>
+            <IndexList
+              v-if="!state.loading"
+              :senArr="state.contentObject"
+              :titleIndex="state.contentLineIndex"
+              :contentIndex="state.contentPageItemIndex"
+              :numberList="state.arrLength"
+              @goTo="goTo"
+              :limt="3"
+            ></IndexList>
+          </template>
+        </IndexLisstSkeleton>
       </div>
 
       <h1 class="page-title">{{ state.pageTag }}</h1>
 
       <!-- <transition-group name="empty" mode="out-in" tag="div"> -->
-        <ContentLine
-          title="START:DASH!!"
-          v-if="state.contentTopList.length"
-          :icon="startIcon"
-        ></ContentLine>
+      <ContentLineSkeleton :loading="state.loading">
+        <template #line>
+          <ContentLine
+            title="START:DASH!!"
+            v-if="state.contentTopList.length"
+            :icon="startIcon"
+          ></ContentLine>
+        </template>
+      </ContentLineSkeleton>
 
-        <!-- 置顶文章 -->
-        <div class="page-top-content-sec" v-if="state.contentTopList.length">
-          <ContentTop
-            class="load-from-bottom"
-            v-for="item in state.contentTopList"
-            :key="`contentTop${item.contentId}`"
-            :cover="item.coverImg"
-            :title="item.title"
-            :content="item.content"
-            :id="item.contentId"
-            :cont="state.contentTopList.length"
-            :contentType="state.contentType"
-          ></ContentTop>
-        </div>
-
-        <!-- 文章 -->
-        <div>
-          <div
-            class="page-content-sec load-from-bottom"
-            v-for="item in state.contentObject"
-            :key="`contentObject${item.typeId}`"
-          >
-            <div class="contentLine">
-              <ContentLine
-                :title="item.typeName"
-                :icon="item.typeIcon"
-                :id="item.typeId"
-                :contentType="state.contentType"
-              ></ContentLine>
-            </div>
-
+      <!-- 置顶文章 -->
+      <div class="page-top-content-sec">
+        <ContentTopSkeleton :loading="state.loading">
+          <template #content>
             <template
-              v-for="(contentItem, contentIndex) in item.contentList"
-              :key="`contentItem${contentItem.contentId}`"
+              v-for="item in state.contentTopList"
+              :key="`contentTop${item.contentId}`"
             >
-              <div class="contentPageItem" v-if="contentIndex < 3">
-                <ContentPageItem
-                  :createTime="contentItem.date"
-                  :title="contentItem.title"
-                  :tag="contentItem.tag"
-                  :content="contentItem.content"
-                  :cover="contentItem.coverImg"
-                  :id="contentItem.contentId"
-                  :index="contentIndex"
-                  :contentType="state.contentType"
-                ></ContentPageItem>
-              </div>
+              <ContentTop
+                class="load-from-bottom"
+                :cover="item.coverImg"
+                :title="item.title"
+                :content="item.content"
+                :id="item.contentId"
+                :cont="state.contentTopList.length"
+                :contentType="state.contentType"
+              ></ContentTop>
             </template>
+          </template>
+        </ContentTopSkeleton>
+      </div>
 
-            <view-more
-              :typeId="item.typeId"
-              :contentType="state.contentType"
-            ></view-more>
-          </div>
-        </div>
+      <!-- 文章 -->
+      <div class="page-content-main">
+        <ContentMainSkeleton :loading="state.loading">
+          <!-- 文章单独区域 -->
+          <template #main>
+            <div
+              class="page-content-sec load-from-bottom"
+              v-for="item in state.contentObject"
+              :key="`contentObject${item.typeId}`"
+            >
+              <div class="contentLine">
+                <ContentLine
+                  :title="item.typeName"
+                  :icon="item.typeIcon"
+                  :id="item.typeId"
+                  :contentType="state.contentType"
+                ></ContentLine>
+              </div>
 
+              <template
+                v-for="(contentItem, contentIndex) in item.contentList"
+                :key="`contentItem${contentItem.contentId}`"
+              >
+                <div class="contentPageItem" v-if="contentIndex < 3">
+                  <ContentPageItem
+                    :createTime="contentItem.date"
+                    :title="contentItem.title"
+                    :tag="contentItem.tag"
+                    :content="contentItem.content"
+                    :cover="contentItem.coverImg"
+                    :id="contentItem.contentId"
+                    :index="contentIndex"
+                    :contentType="state.contentType"
+                  ></ContentPageItem>
+                </div>
+              </template>
+
+              <view-more
+                :typeId="item.typeId"
+                :contentType="state.contentType"
+              ></view-more>
+            </div>
+          </template>
+          <!-- 文章单独区域end -->
+        </ContentMainSkeleton>
         <!-- 空状态 -->
-        <div v-if="!state.contentObject.length" class="empty-box">
+        <div
+          v-if="!state.contentObject.length && !state.loading"
+          class="empty-box"
+        >
           <el-empty
             :image-size="200"
             :image="`${empty}`"
             :description="state.descriptionText"
           ></el-empty>
         </div>
+      </div>
+
       <!-- </transition-group> -->
     </section>
 
@@ -165,6 +190,12 @@ import empty from "../assets/img/statusImg/empty-22.png";
 import startIcon from "../assets/img/fontIcon/anchor.svg";
 import axios from "axios";
 
+// 骨架
+import ContentTopSkeleton from "../components/skeleton/contentPage/contentTopSkeleton.vue";
+import ContentLineSkeleton from "../components/skeleton/contentPage/contentLineSkeleton.vue";
+import IndexLisstSkeleton from "../components/skeleton/contentPage/indexLisstSkeleton.vue";
+import ContentMainSkeleton from "../components/skeleton/contentPage/contentMainSkeleton.vue";
+
 // 老婆
 // setYome
 
@@ -186,10 +217,7 @@ const state = reactive({
     const pageName = pageRouter.path;
     state.contentType = pageRouter.name;
     // 利用计算属性运行请求事件 合理性存疑
-    axios.all([
-      getContentData(),
-      getTopContent()
-    ])
+    axios.all([getContentData(), getTopContent()]);
 
     let page = store.state.meunList.find((ele) => ele.router === pageName);
     return page?.pageTitle;
@@ -218,7 +246,21 @@ const state = reactive({
     contentData: [],
     // 原始typeClass数据
     typeClassData: [],
-  }
+  },
+  // 文章内容是否完全加载结束
+  loadingContent: false,
+  // 顶部内容是否完全加载结束
+  loadingTopContent: false,
+  // 是否完全加载结束
+  loading: computed(() => {
+    if (state.loadingContent && state.loadingTopContent) {
+      return false;
+    } else {
+      return true;
+    }
+
+    // return true
+  }),
 });
 
 /**
@@ -233,7 +275,7 @@ const listenPageTop = () => {
   // 更改index
   changeIndex(contentLineArr, 0, 150, -100, state.checkScrollFlag);
   changeIndex(contentPageItemArr, 1, 80, -100, state.checkScrollFlag);
-}
+};
 
 /**
  * 改变目录index
@@ -264,7 +306,7 @@ const changeIndex = (arr, targetIndex, max, min, scrollFlag) => {
       }
     }
   });
-}
+};
 
 /**
  * 生成数组长度数组
@@ -274,7 +316,7 @@ const setArrLeagth = () => {
   Array.prototype.forEach.call(state.contentObject, (ele) => {
     state.arrLength.push(ele.contentList.length);
   });
-}
+};
 
 /**
  * 返回初始位置计时器
@@ -296,7 +338,7 @@ const setBackTimer = (top, time) => {
   }, time);
 
   timer;
-}
+};
 
 /**
  * 返回指定位置
@@ -314,7 +356,7 @@ const goToContent = (index, contentIndex, titleFlag) => {
   } else {
     setBackTimer(itemTop, 5);
   }
-}
+};
 
 /**
  * 接受子组件传参，跳转页面
@@ -343,27 +385,36 @@ const goTo = (index, contentIndex, titleFlag) => {
   }
 
   goToContent(index, contentItemIndex, titleFlag);
-}
+};
 
 /**
  * @description: 获得文章数据
  * @param {*}
  * @return {*}
  */
-const getContentData = () => {
-  let contentType = state.contentType;
+const getContentData = async () => {
+  try {
+    state.loadingContent = false;
+    let contentType = state.contentType;
 
-  proxy.$http
-    .get(`${API}api/content/getAllContent?contentType=${contentType}`)
-    .then((res) => {
-      state.motoData.contentData = res.data.list;
+    const res = await proxy.$http.get(
+      `${API}api/content/getAllContent?contentType=${contentType}`
+    );
 
-      proxy.$http.get(`${API}api/typeClass/getAllTypeClass`).then((res) => {
-        state.motoData.typeClassData = res.data.list;
-        setResData();
-      });
-    });
-}
+    state.motoData.contentData = res.data.list;
+
+    const typeCalss = await proxy.$http.get(
+      `${API}api/typeClass/getAllTypeClass`
+    );
+
+    state.motoData.typeClassData = typeCalss.data.list;
+
+    state.loadingContent = true;
+    setResData();
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 /**
  * @description: 处理获得数据
@@ -417,7 +468,7 @@ const setResData = () => {
 
   // 设置目录数组
   setArrLeagth();
-}
+};
 
 /**
  * @description: 处理文章数组分组
@@ -478,25 +529,31 @@ const getFinCityList = (oldData) => {
   }
 
   return newData;
-}
+};
 
 /**
  * @description: 获得置顶文章
  * @param {*}
  * @return {*}
  */
-const getTopContent = () => {
-  proxy.$http
-    .get(
-      `${API}api/content/getTopContent?contentType=${state.contentType}&&topNum=3&&lang=${state.langFlag}`
-    )
-    .then((res) => {
-      let newArr = getFinCityList(res.data.list);
+const getTopContent = async () => {
+  try {
+    state.loadingTopContent = false;
 
-      // 深度展开数组
-      state.contentTopList = [...newArr.flat()];
-    });
-}
+    const res = await proxy.$http.get(
+      `${API}api/content/getTopContent?contentType=${state.contentType}&&topNum=3&&lang=${state.langFlag}`
+    );
+
+    let newArr = getFinCityList(res.data.list);
+
+    // 深度展开数组
+    state.contentTopList = [...newArr.flat()];
+
+    state.loadingTopContent = true;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 /**
  * @description: 更改空状态语言
@@ -511,7 +568,7 @@ const changeEmpty = (nowLang) => {
   }
 
   setResData();
-}
+};
 
 // 获得锚点元素
 let contentLineArr = document.getElementsByClassName("contentLine");
@@ -622,9 +679,13 @@ onBeforeUnmount(() => {
     }
 
     // 文章区域
-    .page-content-sec {
-      margin-bottom: 40px;
-      width: 100%;
+    .page-content-main {
+      min-height: 40vh;
+      min-width: 800px;
+      .page-content-sec {
+        margin-bottom: 40px;
+        width: 100%;
+      }
     }
   }
 }
