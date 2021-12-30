@@ -1,70 +1,66 @@
 <!--
  * @Author: zxy
  * @Date: 2021-05-30 17:10:10
- * @LastEditTime: 2021-06-30 21:48:01
- * @FilePath: /my-blog/src/views/adminPage/adminHome.vue
+ * @LastEditTime: 2021-12-30 15:33:39
+ * @FilePath: /sku-blog-vite/src/views/adminPage/adminHome.vue
 -->
 <template>
   <div class="admin-main-sec">
     <!-- 导航 -->
-    <top-nav></top-nav>
+    <TopNav></TopNav>
     <!-- 返回小狐狸 -->
     <!-- <bakc-top></bakc-top> -->
     <!-- 顶部进度条 -->
-    <top-progress></top-progress>
+    <TopProgress></TopProgress>
 
     <section class="show-view">
       <!-- 侧边导航 -->
-      <sidebar class="sidebar-box"></sidebar>
+      <Sidebar class="sidebar-box"></Sidebar>
       <!-- 显示区域 -->
-      <router-view class="view-box"></router-view>
+      <router-view class="view-box" :class="{'show-back': state.notHome}"></router-view>
     </section>
 
     <!-- 页脚 -->
-    <blog-footer></blog-footer>
+    <BlogFooter v-if="state.notHome"></BlogFooter>
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, getCurrentInstance, reactive, toRefs } from 'vue'
 // 顶部导航
-import topNav from '../../components/nav/topNav.vue'
+import TopNav from '../../components/nav/topNav.vue'
 // 返回顶部小狐狸
 import bakcTop from '../../components/backTop/backTop.vue'
 // 页脚
-import blogFooter from '../../components/blogFooter/blogFooter.vue'
+import BlogFooter from '../../components/blogFooter/blogFooter.vue'
 // 顶部滚动条
-import topProgress from '../../components/topProgress/topProgress.vue'
+import TopProgress from '../../components/topProgress/topProgress.vue'
 // 侧边栏
-import sidebar from '../../components/adminPage/sidebar.vue'
+import Sidebar from '../../components/adminPage/sidebar.vue'
+import { useRoute } from 'vue-router'
 
-export default {
-  setup () {
-    const { proxy } = getCurrentInstance()
+const { proxy } = getCurrentInstance()
 
-    const state = reactive({
-      /**
-       * @description: 拿到id
-       * @param {*}
-       * @return {*}
-       */
-      userId: computed(() => {
-        return proxy.$cookie.getCookie("login_SKU_cookies")
-      }),
-    })
+const route = useRoute()
 
-    return {
-      ...toRefs(state),
+const state = reactive({
+  /**
+   * @description: 拿到id
+   * @param {*}
+   * @return {*}
+   */
+  userId: computed(() => {
+    return proxy.$cookie.getCookie("login_SKU_cookies")
+  }),
+  // 是否为管理段首页
+  notHome: computed(() => {
+    if (route.fullPath === '/home') {
+      return false
+    } else {
+      return true
     }
-  },
-  components: {
-    bakcTop,
-    topNav,
-    blogFooter,
-    topProgress,
-    sidebar
-  }
-}
+  })
+})
 </script>
 
 <style lang="scss" scoped>
@@ -84,6 +80,9 @@ export default {
     .view-box {
       width: calc(85% - 60px);
       // height: calc(100vh - 280px);
+    }
+
+    .show-back {
       margin-bottom: -70px;
       margin-top: 60px;
       margin-right: 10px;

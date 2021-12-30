@@ -1,14 +1,18 @@
 <!--
  * @Author: zxy
  * @Date: 2021-06-06 14:23:44
- * @LastEditTime: 2021-11-24 17:39:09
+ * @LastEditTime: 2021-12-30 15:43:57
  * @FilePath: /sku-blog-vite/src/components/adminPage/sidebar.vue
 -->
 <template>
   <aside class="sidebar-sec">
     <el-col class="sidebar-main">
       <el-menu router
-        default-active="2">
+        :default-active="state.pageTag">
+        <el-menu-item index="home">
+          <i class="el-icon-apple"></i>
+          <template #title>首页</template>
+        </el-menu-item>
         <el-sub-menu index="1">
           <template #title>
             <i class="el-icon-collection"></i>
@@ -41,37 +45,28 @@
   </aside>
 </template>
 
-<script>
+<script setup>
 import { computed, getCurrentInstance, reactive, toRefs } from 'vue'
 import store from '../../store'
 import { useRoute } from 'vue-router'
 
-export default {
-  setup () {
-    const { proxy } = getCurrentInstance()
-    const route = useRoute()
+const { proxy } = getCurrentInstance()
+const route = useRoute()
 
-    const state = reactive({
-      // 侧边栏导航列表
-      navList: computed(() => {
-        return store.state.adminList
-      }),
-      /**
-       * 获取当前页面路由
-       */
-      pageTag: computed(() => {
-        const pageName = proxy.$router.currentRoute.value.path
+const state = reactive({
+  // 侧边栏导航列表
+  navList: computed(() => {
+    return store.state.adminList
+  }),
+  /**
+   * 获取当前页面路由
+   */
+  pageTag: computed(() => {
+    const pageName = route.fullPath
 
-        let page = store.state.meunList.find(ele => ele.router === pageName)
-        return page?.pageTitle
-      })
-    })
-
-    return {
-      ...toRefs(state),
-    }
-  }
-}
+    return pageName.slice(1)
+  })
+})
 </script>
 
 <style lang="scss" scoped>

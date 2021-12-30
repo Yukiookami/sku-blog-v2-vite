@@ -1,0 +1,205 @@
+/* 红色进度条 */
+@keyframes fromYtoY {
+  from {
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+  }
+}
+
+/* 圆转圈 */
+@keyframes mawaru {
+  0% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -o-transform: rotate(30deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+  }
+
+  80% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+}
+
+/* 准星左右移动 */
+@keyframes markLeft {
+  from {
+    transform: translateX(1vw);
+    -webkit-transform: translateX(1vw);
+    -moz-transform: translateX(1vw);
+    -ms-transform: translateX(1vw);
+    -o-transform: translateX(1vw);
+  }
+  
+  to {
+    transform: translateX(-0.5vw);
+    -webkit-transform: translateX(-0.5vw);
+    -moz-transform: translateX(-0.5vw);
+    -ms-transform: translateX(-0.5vw);
+    -o-transform: translateX(-0.5vw);
+  }
+}
+
+@keyframes markRight {
+  from {
+    transform: translateX(-1vw);
+    -webkit-transform: translateX(-1vw);
+    -moz-transform: translateX(-1vw);
+    -ms-transform: translateX(-1vw);
+    -o-transform: translateX(-1vw);
+  }
+  
+  to {
+    transform: translateX(.5vw);
+    -webkit-transform: translateX(.5vw);
+    -moz-transform: translateX(.5vw);
+    -ms-transform: translateX(.5vw);
+    -o-transform: translateX(.5vw);
+  }
+}
+
+/* 警告 */
+@keyframes attention {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* 左右滑动 */
+@keyframes dift {
+  from {
+    transform: translate(2vw, 1vw);
+    -webkit-transform: translate(2vw, 1vw);
+    -moz-transform: translate(2vw, 1vw);
+    -ms-transform: translate(2vw, 1vw);
+    -o-transform: translate(2vw, 1vw);
+}
+
+  20% {
+    transform: translate(1.5vw, 0);
+    -webkit-transform: translate(1.5vw, 0);
+    -moz-transform: translate(1.5vw, 0);
+    -ms-transform: translate(1.5vw, 0);
+    -o-transform: translate(1.5vw, 0);
+}
+
+  80% {
+    transform: translate(-.5vw, -.5vw);
+    -webkit-transform: translate(-.5vw, -.5vw);
+    -moz-transform: translate(-.5vw, -.5vw);
+    -ms-transform: translate(-.5vw, -.5vw);
+    -o-transform: translate(-.5vw, -.5vw);
+}
+
+  to {
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -o-transform: translate(0, 0);
+  }
+}
+
+/* 控制文字显现 */ 
+@keyframes textShow {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes textWelcome {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  75% {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* 控制马赛克图片高度 */
+@keyframes mosaic {
+  from {
+    height: 0;
+  }
+
+  33% {
+    height: 0;
+  }
+
+  66% {
+    height: calc(40vw / 1.66);
+    clip-path:inset(0 0 0 0);
+  }
+
+  to{
+    height: calc(40vw / 1.66);
+    clip-path:inset(100% 0 0 0);
+  }
+}
+
+/* 控制主图片显示 */
+@keyframes mainImage {
+  from {
+    height: 0;
+  }
+
+  50% {
+    height: 0;
+  }
+
+  to {
+    height: calc(40vw / 1.66);
+  }
+}

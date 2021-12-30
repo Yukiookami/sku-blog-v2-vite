@@ -1,7 +1,7 @@
 /*
  * @Author: zxy
  * @Date: 2021-04-18 00:15:31
- * @LastEditTime: 2021-11-23 20:25:40
+ * @LastEditTime: 2021-12-30 15:02:06
  * @FilePath: /sku-blog-vite/src/store/index.js
  */
 import { createStore } from 'vuex'
@@ -41,6 +41,10 @@ export default createStore({
     ],
     // 管理端数组
     adminList: [
+      {
+        router: '/home',
+        title: '首页'
+      },
       {
         router: '/add',
         title: '文章增/修'

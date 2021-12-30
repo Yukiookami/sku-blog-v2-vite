@@ -1,8 +1,8 @@
 /*
  * @Author: zxy
  * @Date: 2021-06-26 15:00:02
- * @LastEditTime: 2021-07-11 11:00:14
- * @FilePath: /my-blog/src/router/adminRouter.ts
+ * @LastEditTime: 2021-12-30 15:01:20
+ * @FilePath: /sku-blog-vite/src/router/adminRouter.js
  */
 export default [
   {
@@ -14,6 +14,15 @@ export default [
       requiresAuth: true
     },
     children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('../components/adminPage/home.vue'),
+        meta: {
+          title: 'blog管理',
+          requiresAuth: true
+        },
+      },
       {
         path: '/testPage',
         name: 'test',

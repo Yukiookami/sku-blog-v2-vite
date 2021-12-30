@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-04-20 21:06:28
- * @LastEditTime: 2021-12-09 21:16:12
+ * @LastEditTime: 2021-12-30 15:03:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /sku-blog-vite/src/components/nav/topNav.vue
@@ -154,7 +154,7 @@ export default {
               // const decoded = jwt_decode(token)
               proxy.$cookie.setCookie("login_SKU_cookies", token, 60 * 60 * 24 * 7)
 
-              goToPage('add')
+              goToPage('home')
             }
           })
           // ctx.$cookie.setCookie("login_SKU_cookies", state.username, 60 * 60 * 24 * 30)
