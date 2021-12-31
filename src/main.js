@@ -1,7 +1,7 @@
 /*
  * @Author: zxy
  * @Date: 2021-04-18 00:15:31
- * @LastEditTime: 2021-12-18 17:14:44
+ * @LastEditTime: 2021-12-31 14:14:37
  * @FilePath: /sku-blog-vite/src/main.js
  */
 import { createApp } from 'vue'
@@ -26,6 +26,7 @@ import 'default-passive-events'
 // import VMdEditor from '@kangc/v-md-editor/lib/codemirror-editor';
 // import '@kangc/v-md-editor/lib/style/codemirror-editor.css';
 
+// markdown编译器引入
 // 轻量版
 import VMdEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
@@ -65,6 +66,7 @@ import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css';
 
 // 内容定位
 import createAlignPlugin from '@kangc/v-md-editor/lib/plugins/align';
+// markdown编译器引入end
 
 // 预览组件
 VMdPreview.use(vuepressTheme, {
