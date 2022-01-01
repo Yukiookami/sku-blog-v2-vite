@@ -1,7 +1,7 @@
 <!--
  * @Author: zxy
  * @Date: 2021-12-31 14:02:05
- * @LastEditTime: 2021-12-31 14:31:34
+ * @LastEditTime: 2022-01-01 19:36:05
  * @FilePath: /sku-blog-vite/src/views/billSystem/billSystem.vue
 -->
 <template>
@@ -13,6 +13,7 @@
 </template>
 
 <script setup>
+// todo dataV不支持vite，所以还是先使用vue-cli开发
 import { reactive, ref } from '@vue/reactivity'
 import { nextTick, onMounted } from '@vue/runtime-core'
 import * as echarts from 'echarts'

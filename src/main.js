@@ -1,26 +1,33 @@
 /*
  * @Author: zxy
  * @Date: 2021-04-18 00:15:31
- * @LastEditTime: 2021-12-31 14:14:37
+ * @LastEditTime: 2022-01-01 19:25:35
  * @FilePath: /sku-blog-vite/src/main.js
  */
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-import axios from 'axios'
-import { VueCookieNext } from 'vue-cookie-next'
-import API from './assets/js/API'
+import {
+  createApp
+} from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import axios from 'axios';
+import {
+  VueCookieNext
+} from 'vue-cookie-next';
+import API from './assets/js/API';
 // elementUI
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css';
 
 // css resets
-import 'normalize.css'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import 'normalize.css';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 // google事件优化
-import 'default-passive-events'
+import 'default-passive-events';
+
+// 引入dataV
+// import dataV from '@jiaminghi/data-view';
 
 // markdown编辑器
 // import VMdEditor from '@kangc/v-md-editor/lib/codemirror-editor';
@@ -101,6 +108,7 @@ app.use(VueCookieNext)
 app.use(VMdEditor);
 app.use(VMdPreview)
 app.use(ElementPlus)
+// app.use(dataV)
 // app.use(VueClipboard)
 app.use(store).use(router).mount('#app')
 
@@ -114,9 +122,9 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title
 
     // 判断是否需要登录
-    if(to.meta.requiresAuth) {
+    if (to.meta.requiresAuth) {
       // 判断是否有cookie
-      if(VueCookieNext.getCookie("login_SKU_cookies")) {
+      if (VueCookieNext.getCookie("login_SKU_cookies")) {
         next()
       } else {
         next({
@@ -141,8 +149,8 @@ router.afterEach(() => {
 })
 
 NProgress.configure({
-  easing: 'ease',  // 动画方式
-  speed: 500,  // 递增进度条的速度
+  easing: 'ease', // 动画方式
+  speed: 500, // 递增进度条的速度
   showSpinner: false, // 是否显示加载ico
   trickleSpeed: 200, // 自动递增间隔
   minimum: 0.3 // 初始化时的最小百分比
