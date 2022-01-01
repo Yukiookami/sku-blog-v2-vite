@@ -1,13 +1,15 @@
 <!--
  * @Author: zxy
  * @Date: 2021-12-30 14:59:32
- * @LastEditTime: 2021-12-30 15:33:58
+ * @LastEditTime: 2022-01-01 21:10:04
  * @FilePath: /sku-blog-vite/src/components/adminPage/background/background2233.vue
 -->
 <template>
   <div class="home-page-back">
     <!-- 背景视频 -->
-    <video class="test-bg-video" autoplay loop muted src="../../../assets/bilibili-back/bg.mp4"></video>
+    <video class="test-bg-video"
+    :class="{'show-video': overLoad}"
+    @playing="loadOver" autoplay loop muted src="../../../assets/bilibili-back/bg.mp4"></video>
     <!-- 右半部分漂浮物 -->
     <div class="test-bg-float">
       <img src="../../../assets/bilibili-back/float.png" alt="">
@@ -93,7 +95,9 @@
         // 当前时间
         time: "00'00",
         // 背景马赛克图片
-        imgSrc: backGround2233
+        imgSrc: backGround2233,
+        // 视频是否加载完成
+        overLoad: false
       }
     },
     created () {
@@ -170,6 +174,14 @@
         let myDate = new Date()
         
         this.time = `${myDate.getHours()}'${myDate.getMinutes()}`
+      },
+      /**
+       * @description: 视频是否加载完成
+       * @param {*}
+       * @return {*}
+       */      
+      loadOver () {
+        this.overLoad = true
       }
     }
   }
@@ -182,24 +194,31 @@
 // 整体css
 .home-page-back {
   position: fixed;
-  top: 80px;
   left: 8vw;
   display: flex;
   justify-content: center;
   align-items: center;
   
+  height: 100vh;  
+  background-color: #000;
   width: 100%;
   user-select: none;
 
   // 背景视频
   .test-bg-video {
     position: fixed;
+    transition: all .3s ease-in-out;
     // width: 90vw;
     background-size: 100% 100%;
     left: 55vw;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: -10;
+    opacity: 0;
+  }
+
+  .show-video {
+    opacity: 1;
   }
 
   // 背景漂浮物
