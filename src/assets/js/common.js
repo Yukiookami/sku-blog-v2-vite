@@ -1,7 +1,7 @@
 /*
  * @Author: zxy
  * @Date: 2021-04-25 17:45:52
- * @LastEditTime: 2021-11-23 20:50:25
+ * @LastEditTime: 2022-01-06 14:08:54
  * @FilePath: /sku-blog-vite/src/assets/js/common.js
  */
 import router from "../../router"
@@ -172,6 +172,28 @@ const isPC = () => {
    return ratio;
 };
 
+/**
+ * @description: 设置当前时间
+ * @param {*}
+ * @return {*}
+ */
+const initNowTime = () => {
+  let date = new Date()
+  let year = date.getFullYear()
+  let month = (date.getMonth() + 1).toString()
+  let day = date.getDate().toString()
+
+  if (month.length < 2) {
+    month = 0 + month
+  }
+
+  if (day.length < 2) {
+    day = 0 + day 
+  }
+
+  return `${year}-${month}-${day}`
+}
+
 export {
   handleScroll,
   goToPage,
@@ -181,5 +203,6 @@ export {
   throttle,
   timeChange,
   isPC,
-  detectZoom
+  detectZoom,
+  initNowTime
 }

@@ -1,7 +1,7 @@
 <!--
  * @Author: zxy
  * @Date: 2021-06-06 15:50:41
- * @LastEditTime: 2021-11-23 20:39:43
+ * @LastEditTime: 2022-01-06 14:11:16
  * @FilePath: /sku-blog-vite/src/components/adminPage/kanriPage/addPage.vue
 -->
 <template>
@@ -192,6 +192,7 @@ import { ElMessage } from 'element-plus'
 import { imageRegexp } from '../../../assets/js/Regexp'
 import Base64 from '../../../assets/js/base64'
 import { useRoute } from 'vue-router'
+import { initNowTime } from '../../../assets/js/common'
 
 export default {
   setup () {
@@ -365,10 +366,13 @@ export default {
         }
 
         if (!emptyFlag) {
+          let nowTime = initNowTime()
+
           proxy.$http.post(`${API}api/content/addContent`, {
             cnContentInfo: contentObj,
             jaContentInfo: contentObjJP,
-            contentType: contentObj.contentType
+            contentType: contentObj.contentType,
+            date: nowTime
           }).then((res) => {
             if (res.data.status) {
               ElMessage.success('上传成功')
@@ -429,17 +433,19 @@ export default {
 
         for(let i in contentObj) {
           if (contentObj[i] === '' || contentObjJP[i] === '') {
-            console.log(i)
             emptyFlag = true
           }
         }
 
         if (!emptyFlag) {
+          let nowTime = initNowTime()
+
           proxy.$http.put(`${API}api/content/putContent`, {
             cnContentInfo: contentObj,
             jaContentInfo: contentObjJP,
             contentType: contentObj.contentType,
-            id: state.isChange.id
+            id: state.isChange.id,
+            date: nowTime
           }).then((res) => {
             if (res.data.status) {
               ElMessage.success('修改成功')

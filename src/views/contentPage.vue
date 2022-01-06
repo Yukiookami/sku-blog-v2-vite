@@ -411,6 +411,7 @@ const getContentData = async () => {
     state.motoData.typeClassData = typeCalss.data.list;
 
     state.loadingContent = true;
+
     setResData();
   } catch (err) {
     console.log(err);
@@ -492,7 +493,7 @@ const getFinCityList = (oldData) => {
     oldData.forEach((ele) => {
       let index = [...s].indexOf(ele.cnContentInfo.typeClass);
 
-      if (typeof ele.jaContentInfo.tag === "string") {
+      if (typeof ele.cnContentInfo.tag === "string") {
         ele.cnContentInfo.tag = ele.cnContentInfo.tag.split(",");
         ele.cnContentInfo.date = timeChange(ele.cnContentInfo.date);
       }
