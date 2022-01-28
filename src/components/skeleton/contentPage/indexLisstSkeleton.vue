@@ -1,8 +1,8 @@
 <!--
  * @Author: zxy
  * @Date: 2021-12-29 19:58:20
- * @LastEditTime: 2021-12-29 20:14:44
- * @FilePath: /sku-blog-vite/src/components/skeleton/indexLisstSkeleton.vue
+ * @LastEditTime: 2022-01-28 17:04:56
+ * @FilePath: /sku-blog-vite/src/components/skeleton/contentPage/indexLisstSkeleton.vue
 -->
 <template>
 <!-- 侧边导航骨架 -->
@@ -37,7 +37,7 @@ const props = defineProps({
   flex-direction: column;
   overflow: hidden;
   // height: calc(100vh - 200px);
-  height: 900px;
+  max-height: 900px;
   width: 200px;
   z-index: 999;
   overflow-x: hidden;
