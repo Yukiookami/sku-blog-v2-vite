@@ -1,7 +1,7 @@
 <!--
  * @Author: zxy
  * @Date: 2021-12-29 19:58:20
- * @LastEditTime: 2022-01-28 17:04:56
+ * @LastEditTime: 2022-01-29 14:24:49
  * @FilePath: /sku-blog-vite/src/components/skeleton/contentPage/indexLisstSkeleton.vue
 -->
 <template>
@@ -37,7 +37,7 @@ const props = defineProps({
   flex-direction: column;
   overflow: hidden;
   // height: calc(100vh - 200px);
-  max-height: 900px;
+  height: 900px;
   width: 200px;
   z-index: 999;
   overflow-x: hidden;
