@@ -1,8 +1,8 @@
 /*
  * @Author: zxy
  * @Date: 2021-06-26 15:01:05
- * @LastEditTime: 2021-07-11 12:28:32
- * @FilePath: /my-blog/src/router/homePageRouter.ts
+ * @LastEditTime: 2022-11-20 10:46:25
+ * @FilePath: /sku-blog-vite/src/router/homePageRouter.js
  */
 import Home from '../views/Home.vue'
 
@@ -28,7 +28,7 @@ export default [
     name: 'Home',
     component: Home,
     meta: {
-      title: 'welcome to SKU blog'
+      title: 'welcome to SKU blog 个人技术分享网站'
     }
   },
   {

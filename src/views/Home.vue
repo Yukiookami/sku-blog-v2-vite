@@ -111,6 +111,10 @@
         :changeRotate="state.changeRotate"
       ></IndexNav>
     </div>
+
+    <div class="bottom-cover">
+      <a href="https://beian.miit.gov.cn/" class="record">© 2021 SkuZxy 蜀ICP备2021015594号-1</a>
+    </div>
   </div>
 </template>
 
@@ -516,5 +520,22 @@ axios.all([
 .blog-home-page-defalt {
   // background-image: url('../assets/img/homeBack/sakura-back.png');
   background-image: url("../assets/img/homeBack/star-back.png");
+}
+
+.bottom-cover {
+  position: fixed;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+
+  .record {
+    display: block;
+    margin-top: 10px;
+    color: #000;
+    font-size: 13px;
+    text-decoration: none;
+  } 
 }
 </style>
